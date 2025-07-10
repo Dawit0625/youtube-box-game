@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pick the Box Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #333;
+    }
+    .boxes {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+    }
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: #f0c040;
+      border: 2px solid #aaa;
+      margin: 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    .result {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎁 Pick a Box and Win 5,000 Birr!</h1>
+  <p>Only 5 winners out of 50,000 participants</p>
+  <div class="boxes">
+    <div class="box" onclick="pickBox(this)">Box 1</div>
+    <div class="box" onclick="pickBox(this)">Box 2</div>
+    <div class="box" onclick="pickBox(this)">Box 3</div>
+  </div>
+  <div class="result" id="result"></div>
+
+  <script>
+    let totalPlays = 0;
+    let winners = 0;
+    const maxPlays = 50000;
+    const maxWinners = 5;
+
+    function pickBox(box) {
+      if (totalPlays >= maxPlays) {
+        document.getElementById('result').innerText = 'Game over. All chances used!';
+        return;
+      }
+
+      totalPlays++;
+      let winChance = (winners < maxWinners) ? Math.random() < (maxWinners - winners) / (maxPlays - totalPlays + 1) : false;
+
+      if (winChance) {
+        winners++;
+        document.getElementById('result').innerText = '🎉 Congratulations! You won 5,000 Birr!';
+      } else {
+        document.getElementById('result').innerText = '😢 Sorry, not this time. Try again later!';
+      }
+    }
+  </script>
+</body>
+</html>
